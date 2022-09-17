@@ -5,9 +5,11 @@ const {
   ERROR_PAYMENT,
 } = require("./types");
 
-const MAX_FEE = 500; // sats [tokens]
 const WITDHRAW_LOCK = 10 * 60 * 1000; // 10min in miliseconds
-const MAX_WITHDRAWAL = 500000; // 500k max withdrawal limit
+const MAX_WITHDRAWAL = 350000; // 350k max withdrawal limit
+
+const maxFeePercent = 0.17;
+const maxFeePaidByPlatform = 9;
 
 module.exports = async (db, lnd) => {
   const querySnap = await db
@@ -58,15 +60,21 @@ module.exports = async (db, lnd) => {
           id
         );
 
+        let reservedFee = Math.round((tokens * maxFeePercent) / 100);
+
+        if (reservedFee <= maxFeePaidByPlatform) {
+          reservedFee = 0;
+        }
+
         if (
           isNaN(balance) ||
           isNaN(tokens) ||
           typeof balance === "string" ||
           tokens <= 0 ||
-          balance < tokens
+          balance < tokens + reservedFee
         ) {
           throw new Error(
-            `Invoice amount should be less than or equal to ${balance} satoshis`
+            `Invoice amount + reserved withdrawal fee (${reservedFee}) should be less than or equal to ${balance} satoshis`
           );
         }
 
@@ -97,7 +105,7 @@ module.exports = async (db, lnd) => {
           lnService.pay({
             lnd,
             request,
-            max_fee: MAX_FEE,
+            max_fee: Math.max(reservedFee, maxFeePaidByPlatform),
           }),
         ]);
 
