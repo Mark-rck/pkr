@@ -19,7 +19,7 @@
 
 const admin = require("firebase-admin");
 
-const serviceAccount = require("./lightning-poker-firebase-adminsdk-pdomv-82e6bf58f2.json");
+const serviceAccount = require('/home/larry/lightning-poker/services/lzpkr.json');
 const processAutoFolds = require("./lib/auto-folds");
 const processHands = require("./lib/process-hands");
 

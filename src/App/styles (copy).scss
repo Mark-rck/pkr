@@ -1,0 +1,79 @@
+.app {
+  position: relative;
+  transition: left 0.2s;
+  opacity: 1;
+  left: 0;
+  height: 100vh;
+}
+
+.error-message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: grid;
+  place-content: center;
+  font-size: 24px;
+  font-weight: 100;
+  padding: 0 60px 60px 60px;
+  text-align: center;
+  grid-gap: 20px;
+}
+
+.menu {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  bottom: 0;
+  width: 320px;
+  right: -320px;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: right 0.2s;
+}
+
+.active-menu {
+  .app {
+    left: -320px;
+    opacity: 0.4;
+  }
+  .menu {
+    right: 0px;
+  }
+}
+
+.games-drawer {
+  position: absolute;
+  width: 320px;
+  top: 0;
+  bottom: 0;
+  left: -320px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-top: 66px;
+
+  .toggle-games {
+    position: absolute;
+    cursor: pointer;
+    right: -25px;
+    top: calc(50% - 50px);
+  }
+}
+
+.toggle-games {
+  .chevron {
+    transform: scale(1, 1) translate(0, 0);
+    transform-origin: center;
+  }
+}
+
+[data-games="visible"] {
+  .games-drawer {
+    left: 0;
+  }
+  .toggle-games {
+    .chevron {
+      transform: scale(-1, 1) translate(13px, 0);
+    }
+  }
+}

@@ -17,7 +17,7 @@ const { JOIN, LEAVE, REQUESTED_INVOICE } = require("./lib/types");
 
 if (process.env.FUNCTIONS_EMULATOR) {
   // load config from services....
-  const serviceAccount = require("../services/lightning-poker-firebase-adminsdk-pdomv-82e6bf58f2.json");
+  const serviceAccount = require('/home/larry/lightning-poker/functions/lzpkr.json');
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
   });

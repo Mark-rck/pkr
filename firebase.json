@@ -3,33 +3,30 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-  "functions": {
-    "source": "functions"
-  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default"
+    },
+    {
+      "source": "lipoker",
+      "codebase": "lipoker",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    }
+  ],
   "hosting": {
-    "public": "build",
+    "public": "y",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
     "rewrites": [
-      {
-        "source": "/action",
-        "function": "action"
-      },
-      {
-        "source": "/join",
-        "function": "join"
-      },
-      {
-        "source": "/leave",
-        "function": "leave"
-      },
-      {
-        "source": "/lnurlpay",
-        "function": "lnurlpay"
-      },
       {
         "source": "**",
         "destination": "/index.html"
@@ -48,6 +45,16 @@
     },
     "ui": {
       "enabled": true
+    },
+    "database": {
+      "port": 9000
+    },
+    "singleProjectMode": true,
+    "auth": {
+      "port": 9099
     }
+  },
+  "database": {
+    "rules": "database.rules.json"
   }
 }

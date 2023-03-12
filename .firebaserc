@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "lightning-poker"
-  }
+    "default": "lizapoker-8d7d5",
+    "liza": "lizapoker-8d7d5"
+  },
+  "targets": {},
+  "etags": {}
 }
